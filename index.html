@@ -204,13 +204,14 @@
                         <tr>
                             <th>Product Name</th>
                             <th>Target Region</th>
-                            <th>Sizes Available</th>
+                            <th>Sizes Variation/Available</th>
                             <th>Price</th>
-                            <th>Product made of</th>
+                            <th>Product Made of</th>
                             <th>Shipping Information</th>
                             <th>Product Description</th>
-                            <th>Reviews</th>
-                            <th>Product URL</th>
+                            <th>Product Benefits</th>
+                            <th>Other USPs</th>
+                            <th>Product Page URL</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -221,14 +222,15 @@
                 tableHTML += `
                     <tr>
                         <td>${item["Product Name"]}</td>
-                        <td>${item["Target region"]}</td>
-                         <td>${item["Sizes Available"]}</td>
+                        <td>${item["Target Region/Delivery Region"]}</td>
+                         <td>${item["Sizes Variation/Available"]}</td>
                         <td>${item["Price"]}</td>
-                        <td>${item["Product made of"]}</td>
-                        <td>${item["Shipping Information"]}</td>
+                        <td>${item["Product Made of"]}</td>
+                        <td>${item["Shipping Summary"]}</td>
                         <td>${item["Product Description"]}</td>
-                        <td>${item["Reviews"]}</td>
-                        <td><a href="${item["Product page URL"]}" target="_blank">View Product</a></td>
+                        <td>${item["Product Benefits"]}</td>
+                        <td>${item["Other USPs"]}</td>
+                        <td><a href="${item["Product Page URL"]}" target="_blank">View Product</a></td>
                     </tr>
                 `;
             });
