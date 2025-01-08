@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "format": "prettier --write .",
-    "ts-lint-commit-hook": "tsc --noEmit --incremental"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -56,11 +55,5 @@
     "lynt": "^0.5.5",
     "prettier": "^3.0.0",
     "prettier-plugin-organize-imports": "^3.2.3"
-  },
-  "lint-staged": {
-    "*{js,jsx,ts,tsx}": [
-      "eslint app/",
-      "prettier --check"
-    ]
   }
 }
