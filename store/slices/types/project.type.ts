@@ -1,4 +1,4 @@
-import { PaginatedResult, Pagination, Request } from "@/components/types";
+import { PaginatedResult, Pagination, Request } from '@/components/types';
 
 export type ProjectState = {
   projectPagination: Pagination;

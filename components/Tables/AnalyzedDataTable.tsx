@@ -3,12 +3,11 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import Link from "next/link";
+} from '@/components/ui/table';
+import Link from 'next/link';
 
 export function AnalyzedDataTable({ data }: { data: any }) {
   return (
@@ -30,17 +29,17 @@ export function AnalyzedDataTable({ data }: { data: any }) {
       <TableBody>
         {data.map((item: any, index: number) => (
           <TableRow key={index}>
-            <TableCell>{item["Product Name"]}</TableCell>
-            <TableCell>{item["Target region"]}</TableCell>
-            <TableCell>{item["Sizes Available"]}</TableCell>
-            <TableCell>{item["Price"]}</TableCell>
-            <TableCell>{item["Product made of"]}</TableCell>
-            <TableCell>{item["Shipping Information"]}</TableCell>
-            <TableCell>{item["Product Description"]}</TableCell>
-            <TableCell>{item["Reviews"]}</TableCell>
+            <TableCell>{item['Product Name']}</TableCell>
+            <TableCell>{item['Target region']}</TableCell>
+            <TableCell>{item['Sizes Available']}</TableCell>
+            <TableCell>{item['Price']}</TableCell>
+            <TableCell>{item['Product made of']}</TableCell>
+            <TableCell>{item['Shipping Information']}</TableCell>
+            <TableCell>{item['Product Description']}</TableCell>
+            <TableCell>{item['Reviews']}</TableCell>
             <TableCell>
               <Link
-                href={item["Product page URL"]}
+                href={item['Product page URL']}
                 target="_blank"
                 rel="noopener noreferrer"
               >

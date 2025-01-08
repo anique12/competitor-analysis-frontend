@@ -1,6 +1,6 @@
-import { createWrapper } from "next-redux-wrapper";
-import { configureStore, Store } from "@reduxjs/toolkit";
-import project from "./slices/project";
+import { configureStore, Store } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
+import project from './slices/project';
 
 export const getStoreCreator = () => () =>
   configureStore({

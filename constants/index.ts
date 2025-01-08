@@ -7,10 +7,10 @@ export const RequestInitialState = {
 
 export const endpoints = {
   auth: {
-    SIGN_IN: "auth/signin",
-    SIGN_UP: "auth/signup",
+    SIGN_IN: 'auth/signin',
+    SIGN_UP: 'auth/signup',
   },
   project: {
-    getAllProjects: "project",
+    getAllProjects: 'project',
   },
 };

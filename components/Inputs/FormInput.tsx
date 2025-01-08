@@ -1,14 +1,13 @@
-"use client";
-import React from "react";
+'use client';
 import {
-  FormMessage,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useFormContext } from "react-hook-form";
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useFormContext } from 'react-hook-form';
 
 const FormInput = ({
   name,
@@ -36,7 +35,7 @@ const FormInput = ({
               placeholder={placeholder}
               className={`focus-visible:ring-1 text-sm  ${
                 errors[name] &&
-                "bg-red-600/5 border focus-visible:ring-0 placeholder:text-red-500 border-red-600 "
+                'bg-red-600/5 border focus-visible:ring-0 placeholder:text-red-500 border-red-600 '
               }`}
               {...field}
             />

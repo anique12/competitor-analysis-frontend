@@ -1,20 +1,19 @@
-"use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import FormInput from "../Inputs/FormInput";
-import { Button } from "../ui/button";
-import { Form } from "../ui/form";
-import { createProjectSchema } from "./Schema";
-import { CreateFormType } from "./types";
-import { useAppDispatch } from "@/hooks/store";
-import { getAllProjects } from "@/store/slices/project";
+'use client';
+import { useAppDispatch } from '@/hooks/store';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import FormInput from '../Inputs/FormInput';
+import { Button } from '../ui/button';
+import { Form } from '../ui/form';
+import { createProjectSchema } from './Schema';
+import { CreateFormType } from './types';
 
 const CreateProjectForm = () => {
   const dispatch = useAppDispatch();
   const formMethods = useForm<CreateFormType>({
     defaultValues: {
-      title: "",
-      url: "",
+      title: '',
+      url: '',
     },
     resolver: zodResolver(createProjectSchema),
   });

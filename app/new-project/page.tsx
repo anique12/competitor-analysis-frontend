@@ -1,4 +1,4 @@
-import CreateProjectDialog from "@/components/Dialog/CreateProject";
+import CreateProjectDialog from '@/components/Dialog/CreateProject';
 
 const NewProject = () => {
   return (

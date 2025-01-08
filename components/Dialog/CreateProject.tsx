@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,15 +6,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import CreateProjectForm from "../Forms/CreateProjectForm";
+} from '@/components/ui/dialog';
+import CreateProjectForm from '../Forms/CreateProjectForm';
 
 export default function CreateProjectDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button className="w-48" variant="default">
-          Create{" "}
+          Create{' '}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

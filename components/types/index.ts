@@ -1,5 +1,5 @@
-import { SerializedError } from "@reduxjs/toolkit";
-import { HttpStatusCode } from "axios";
+import { SerializedError } from '@reduxjs/toolkit';
+import { HttpStatusCode } from 'axios';
 
 export type ServerResponse<R = any> = {
   data: R;

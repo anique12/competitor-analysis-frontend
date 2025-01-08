@@ -1,0 +1,30 @@
+# ignore test files along with mocks and fixtures
+
+_.mock.js
+_.fixture.js
+_**mocks**_
+_**tests**_
+
+# ignore 3rd party libs
+
+src/libs
+
+# ignore images folder
+
+src/images
+
+# extravagant stuff
+
+public/
+docker/
+cypress/
+build/
+coverage/
+
+# IDE configuration
+
+.vscode/
+.idea/
+
+node_modules/
+README.md

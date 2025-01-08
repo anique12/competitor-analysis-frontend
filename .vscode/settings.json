@@ -1,0 +1,23 @@
+{
+  "files.exclude": {
+    "**/.git": false,
+    "**/.next": true,
+    "**/coverage": false,
+    "**/build": false
+  },
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.jsxSingleQuote": true,
+  "prettier.requireConfig": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "typescript",
+    "typescriptreact"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.localesPaths": ["src/i18n"]
+}

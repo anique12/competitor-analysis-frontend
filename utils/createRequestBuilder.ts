@@ -1,21 +1,21 @@
+import { PaginatedResult, ServerResponse } from '@/components/types';
+import { ProjectState } from '@/store/slices/types/project.type';
 import {
   ActionReducerMapBuilder,
   AsyncThunk,
   PayloadAction,
-} from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
+} from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
 
 interface AsyncThunkConfig {}
-import { PaginatedResult, ServerResponse } from "@/components/types";
-import { ProjectState } from "@/store/slices/types/project.type";
 
 type Res<S, R> = {
   state: S;
   action: PayloadAction<AxiosResponse<PaginatedResult<any>>>;
-  res: AxiosResponse<Omit<Res<S, R>, "state" | "res" | "action">>;
+  res: AxiosResponse<Omit<Res<S, R>, 'state' | 'res' | 'action'>>;
   arg: any;
   requestId: string;
-  requestStatus: "fulfilled";
+  requestStatus: 'fulfilled';
 } & ServerResponse<R>;
 
 type CustomLogic<S, R> = {
@@ -30,7 +30,7 @@ const returnBuilder = <S, R>(
   name: string,
   customLogic: CustomLogic<S, R>,
   showSuccessMessage = false,
-  showErrorMessages = true
+  showErrorMessages = true,
 ) => {
   builder.addCase(request.pending, (state, action) => {
     if (!action.meta.arg?.showNoLoading) {
@@ -82,7 +82,7 @@ const returnBuilder = <S, R>(
 
 export const createRequestBuilderProject = <
   D,
-  K extends keyof ProjectState["requests"] = keyof ProjectState["requests"]
+  K extends keyof ProjectState['requests'] = keyof ProjectState['requests'],
 >(
   builder: ActionReducerMapBuilder<ProjectState>,
   request: AsyncThunk<AxiosResponse<D, any>, any, AsyncThunkConfig>,
@@ -91,7 +91,7 @@ export const createRequestBuilderProject = <
   options?: {
     showSuccessMessage?: boolean;
     showErrorMessages?: boolean;
-  }
+  },
 ) =>
   returnBuilder(
     builder,
@@ -99,5 +99,5 @@ export const createRequestBuilderProject = <
     name,
     customLogic,
     options?.showSuccessMessage,
-    options?.showErrorMessages
+    options?.showErrorMessages,
   );

@@ -1,15 +1,15 @@
+import { PaginatedResult } from '@/components/types';
+import { RequestInitialState, endpoints } from '@/constants';
+import { API } from '@/services';
+import { createRequestBuilderProject } from '@/utils/createRequestBuilder';
 import {
   createAsyncThunk,
   createSelector,
   createSlice,
-} from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import { RootState } from "../store";
-import { RequestInitialState, endpoints } from "@/constants";
-import { Project, ProjectState } from "./types/project.type";
-import { PaginatedResult } from "@/components/types";
-import { createRequestBuilderProject } from "@/utils/createRequestBuilder";
-import { API } from "@/services";
+} from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
+import { RootState } from '../store';
+import { Project, ProjectState } from './types/project.type';
 
 const initialState: ProjectState = {
   projectPagination: {
@@ -22,7 +22,7 @@ const initialState: ProjectState = {
 };
 
 export const getAllProjects = createAsyncThunk(
-  "project/getAllProjects",
+  'project/getAllProjects',
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
       const url = endpoints.project.getAllProjects;
@@ -32,18 +32,18 @@ export const getAllProjects = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const projectSlice = createSlice({
-  name: "project",
+  name: 'project',
   initialState,
   reducers: {
     setProjectPagination: (state, action) => {
       state.projectPagination = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(HYDRATE, (state, action: any) => {
       return {
         ...state,
@@ -53,7 +53,7 @@ export const projectSlice = createSlice({
     createRequestBuilderProject<PaginatedResult<Project>>(
       builder,
       getAllProjects,
-      "getAllProjects"
+      'getAllProjects',
     );
   },
 });
@@ -64,8 +64,8 @@ export const selectRequests = (state: RootState) => state.project.requests;
 export const selectProjectPagination = (state: RootState) =>
   state.project.projectPagination;
 
-export const selectRequest = <K extends keyof ProjectState["requests"]>(
-  key: K
-) => createSelector([selectRequests], (requests) => requests[key]);
+export const selectRequest = <K extends keyof ProjectState['requests']>(
+  key: K,
+) => createSelector([selectRequests], requests => requests[key]);
 
 export default projectSlice.reducer;

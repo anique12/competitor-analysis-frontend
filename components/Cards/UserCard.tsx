@@ -1,6 +1,5 @@
-import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
-import React from "react";
-import { AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
+import { AvatarImage } from '../ui/avatar';
 
 const UserCard = () => {
   return (

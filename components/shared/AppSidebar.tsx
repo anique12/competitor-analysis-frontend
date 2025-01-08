@@ -8,17 +8,17 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { CirclePlus } from "lucide-react";
-import Link from "next/link";
-import UserCard from "../Cards/UserCard";
-import ProjectsCard from "../Projects/ProjectsCard";
+} from '@/components/ui/sidebar';
+import { CirclePlus } from 'lucide-react';
+import Link from 'next/link';
+import UserCard from '../Cards/UserCard';
+import ProjectsCard from '../Projects/ProjectsCard';
 
 export function AppSidebar() {
   const items = [
     {
-      title: "New Project",
-      url: "new-project",
+      title: 'New Project',
+      url: 'new-project',
       icon: CirclePlus,
     },
   ];
@@ -31,7 +31,7 @@ export function AppSidebar() {
         <SidebarGroup />
         <SidebarGroupContent>
           <SidebarMenu>
-            {items.map((item) => (
+            {items.map(item => (
               <SidebarMenuItem className="px-2" key={item.title}>
                 <SidebarMenuButton asChild>
                   <Link href={item.url}>

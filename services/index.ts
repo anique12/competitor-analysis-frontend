@@ -1,16 +1,11 @@
-import axios, { AxiosError, HttpStatusCode } from "axios";
+import axios, { AxiosError, HttpStatusCode } from 'axios';
 
 const AXIOS_ERROR_CODES = {
-  ERR_NETWORK: "Oops! Something went wrong.",
+  ERR_NETWORK: 'Oops! Something went wrong.',
 };
 
 export const API = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  },
 });
 
 API.interceptors.response.use(
@@ -28,8 +23,8 @@ API.interceptors.response.use(
           return Promise.reject(result.response.message[0]);
         }
       } else if (error.response.status === HttpStatusCode.Unauthorized) {
-        if ((error.response.data as any).detail === "Invalid token.") {
-          const lang = document.location.pathname.split("/")[1];
+        if ((error.response.data as any).detail === 'Invalid token.') {
+          const lang = document.location.pathname.split('/')[1];
           localStorage.clear();
           history.back();
           window.location.replace(`${window.location.origin}/login`);
@@ -37,5 +32,5 @@ API.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );

@@ -1,11 +1,11 @@
-"use client";
-import React, { useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { AnalyzedDataTable } from "../Tables/AnalyzedDataTable";
+'use client';
+import { useState } from 'react';
+import { AnalyzedDataTable } from '../Tables/AnalyzedDataTable';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
 const AnalyzeInput = () => {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [showTable, setShowTable] = useState<boolean>(false);
@@ -15,13 +15,13 @@ const AnalyzeInput = () => {
     setShowTable(false);
     setData([]);
     if (!url.trim()) {
-      setError("Please enter a valid URL");
+      setError('Please enter a valid URL');
       return;
     }
 
     const isValidUrl = /^(https?:\/\/)[^\s$.?#].[^\s]*$/i.test(url);
     if (!isValidUrl) {
-      setError("Please enter a valid URL.");
+      setError('Please enter a valid URL.');
       return;
     }
 
@@ -30,19 +30,19 @@ const AnalyzeInput = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/analyze-website",
+        'http://localhost:4000/api/analyze-website',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             // "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({ url }),
-        }
+        },
       );
 
       if (!response.ok) {
-        throw new Error((await response.text()) || "Failed to analyze website");
+        throw new Error((await response.text()) || 'Failed to analyze website');
       }
 
       const result = await response.json();
@@ -51,11 +51,11 @@ const AnalyzeInput = () => {
         setShowTable(true);
         setData(result.analysis);
       } else {
-        setError("No valid data found.");
+        setError('No valid data found.');
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || "Something went wrong. Please try again.");
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -69,10 +69,10 @@ const AnalyzeInput = () => {
           placeholder="Enter website URL (e.g., https://example.com)"
           className="w-[40%]"
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={e => setUrl(e.target.value)}
         />
         <Button variant="outline" onClick={handleAnalyze} disabled={loading}>
-          {loading ? "Analyzing..." : "Analyze"}
+          {loading ? 'Analyzing...' : 'Analyze'}
         </Button>
       </div>
       {error && (
