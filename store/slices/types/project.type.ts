@@ -1,10 +1,19 @@
-import { PaginatedResult, Pagination, Request } from '@/components/types';
+import {  Pagination, Request } from '@/components/types';
 
 export type ProjectState = {
   projectPagination: Pagination;
   requests: {
-    getAllProjects: Request<PaginatedResult<Project>>;
+    getAllProjects: Request<Project[]>;
+    createProject: Request;
   };
 };
 
-export type Project = {};
+export type Project = {
+  title: string;
+  url: string;
+};
+
+export type CreateProjectType = {
+  title: string;
+  websiteUrl: string;
+}

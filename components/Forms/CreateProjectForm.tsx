@@ -1,5 +1,5 @@
 'use client';
-import { useAppDispatch } from '@/hooks/store';
+import { useAppDispatch, useAppSelector } from '@/hooks/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import FormInput from '../Inputs/FormInput';
@@ -7,9 +7,11 @@ import { Button } from '../ui/button';
 import { Form } from '../ui/form';
 import { createProjectSchema } from './Schema';
 import { CreateFormType } from './types';
+import { createProject, selectRequest } from '@/store/slices/project';
 
 const CreateProjectForm = () => {
   const dispatch = useAppDispatch();
+  const { inProgress } = useAppSelector(selectRequest('createProject'));
   const formMethods = useForm<CreateFormType>({
     defaultValues: {
       title: '',
@@ -19,7 +21,9 @@ const CreateProjectForm = () => {
   });
   const { handleSubmit } = formMethods;
 
-  const onFormSubmit = (data: CreateFormType) => {};
+  const onFormSubmit = (data: CreateFormType) => {
+    dispatch(createProject({ title: data.title, websiteUrl: data.url }));
+  };
 
   return (
     <Form {...formMethods}>
@@ -34,7 +38,7 @@ const CreateProjectForm = () => {
           name="url"
           placeholder="Enter website url"
         />
-        <Button className="w-full mt-12" type="submit">
+        <Button loading={inProgress}  className="w-full mt-12" type="submit">
           Create
         </Button>
       </form>

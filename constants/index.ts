@@ -12,5 +12,6 @@ export const endpoints = {
   },
   project: {
     getAllProjects: 'project',
+    create: 'project/create',
   },
 };

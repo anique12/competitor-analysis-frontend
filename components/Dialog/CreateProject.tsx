@@ -1,3 +1,4 @@
+'use client';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -8,12 +9,24 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import CreateProjectForm from '../Forms/CreateProjectForm';
+import { useEffect, useState } from 'react';
+import { selectRequest } from '@/store/slices/project';
+import { useAppSelector } from '@/hooks/store';
 
 export default function CreateProjectDialog() {
+  const { success } = useAppSelector(selectRequest('createProject'));
+  const [open, setOpen] = useState<boolean>(false)
+
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (success) handleClose();
+  },[success])
+
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button className="w-48" variant="default">
+        <Button onClick={()=>setOpen(true)} className="w-48" variant="default">
           Create{' '}
         </Button>
       </DialogTrigger>

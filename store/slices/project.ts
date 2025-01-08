@@ -9,7 +9,7 @@ import {
 } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '../store';
-import { Project, ProjectState } from './types/project.type';
+import { CreateProjectType, Project, ProjectState } from './types/project.type';
 
 const initialState: ProjectState = {
   projectPagination: {
@@ -18,6 +18,7 @@ const initialState: ProjectState = {
   },
   requests: {
     getAllProjects: RequestInitialState,
+    createProject: RequestInitialState,
   },
 };
 
@@ -26,8 +27,25 @@ export const getAllProjects = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
       const url = endpoints.project.getAllProjects;
-      console.log(url);
       const res = await API.get(url);
+      return fulfillWithValue(res);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+
+export const createProject = createAsyncThunk(
+  'project/createProject',
+  async ({title, websiteUrl} : CreateProjectType, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const url = endpoints.project.create;
+      const res = await API.post(url, {
+      title,
+      url: websiteUrl
+      });
+      
       return fulfillWithValue(res);
     } catch (error) {
       return rejectWithValue(error);
@@ -47,14 +65,20 @@ export const projectSlice = createSlice({
     builder.addCase(HYDRATE, (state, action: any) => {
       return {
         ...state,
-        ...action.payload.app,
+        ...action.payload.project,
       };
     });
-    createRequestBuilderProject<PaginatedResult<Project>>(
+    createRequestBuilderProject<Project>(
       builder,
       getAllProjects,
       'getAllProjects',
     );
+    createRequestBuilderProject<Project>(
+      builder,
+      createProject,
+      'createProject',
+    );
+    
   },
 });
 
