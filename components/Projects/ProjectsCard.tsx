@@ -11,8 +11,6 @@ const ProjectsCard = () => {
     dispatch(getAllProjects());
   }, []);
 
-  console.log(data);
-
   return <div>ProjectsCard</div>;
 };
 

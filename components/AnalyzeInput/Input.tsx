@@ -83,7 +83,7 @@ const AnalyzeInput = () => {
         <div className="italic text-gray-500">
           <p>Analyzing website... This may take a few minutes.</p>
           <p className="text-black">
-            We're scraping the website and analyzing the content. Please be
+            We are scraping the website and analyzing the content. Please be
             patient.
           </p>
         </div>

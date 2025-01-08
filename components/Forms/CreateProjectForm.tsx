@@ -19,9 +19,7 @@ const CreateProjectForm = () => {
   });
   const { handleSubmit } = formMethods;
 
-  const onFormSubmit = (data: CreateFormType) => {
-    console.log(data);
-  };
+  const onFormSubmit = (data: CreateFormType) => {};
 
   return (
     <Form {...formMethods}>
