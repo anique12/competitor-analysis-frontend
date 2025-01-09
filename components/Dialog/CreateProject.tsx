@@ -8,25 +8,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import CreateProjectForm from '../Forms/CreateProjectForm';
-import { useEffect, useState } from 'react';
-import { selectRequest } from '@/store/slices/project';
 import { useAppSelector } from '@/hooks/store';
+import { selectRequest } from '@/store/slices/project';
+import { useEffect, useState } from 'react';
+import CreateProjectForm from '../Forms/CreateProjectForm';
 
 export default function CreateProjectDialog() {
   const { success } = useAppSelector(selectRequest('createProject'));
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (success) handleClose();
-  },[success])
+  }, [success]);
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button onClick={()=>setOpen(true)} className="w-48" variant="default">
+        <Button
+          onClick={() => setOpen(true)}
+          className="w-48"
+          variant="default"
+        >
           Create{' '}
         </Button>
       </DialogTrigger>

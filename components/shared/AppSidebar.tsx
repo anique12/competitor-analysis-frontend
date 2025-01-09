@@ -17,8 +17,8 @@ import ProjectsCard from '../Projects/ProjectsCard';
 export function AppSidebar() {
   const items = [
     {
-      title: 'New Project',
-      url: 'new-project',
+      title: 'Create Project',
+      url: '/project/create',
       icon: CirclePlus,
     },
   ];

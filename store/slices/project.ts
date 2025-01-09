@@ -1,4 +1,4 @@
-import { PaginatedResult } from '@/components/types';
+import { GenericResponse } from '@/components/types';
 import { RequestInitialState, endpoints } from '@/constants';
 import { API } from '@/services';
 import { createRequestBuilderProject } from '@/utils/createRequestBuilder';
@@ -9,7 +9,12 @@ import {
 } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '../store';
-import { CreateProjectType, Project, ProjectState } from './types/project.type';
+import {
+  CreateProjectType,
+  Project,
+  ProjectState,
+  TaskType,
+} from './types/project.type';
 
 const initialState: ProjectState = {
   projectPagination: {
@@ -19,6 +24,7 @@ const initialState: ProjectState = {
   requests: {
     getAllProjects: RequestInitialState,
     createProject: RequestInitialState,
+    getTaskStatus: RequestInitialState,
   },
 };
 
@@ -35,17 +41,35 @@ export const getAllProjects = createAsyncThunk(
   },
 );
 
-
 export const createProject = createAsyncThunk(
   'project/createProject',
-  async ({title, websiteUrl} : CreateProjectType, { fulfillWithValue, rejectWithValue }) => {
+  async (
+    { title, websiteUrl }: CreateProjectType,
+    { fulfillWithValue, rejectWithValue },
+  ) => {
     try {
       const url = endpoints.project.create;
       const res = await API.post(url, {
-      title,
-      url: websiteUrl
+        title,
+        url: websiteUrl,
       });
-      
+
+      return fulfillWithValue(res);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const getTaskStatus = createAsyncThunk(
+  'project/getTaskStatus',
+  async (
+    { taskId }: { taskId: string },
+    { fulfillWithValue, rejectWithValue },
+  ) => {
+    try {
+      const url = `${endpoints.project.taskStatus}/${taskId}`;
+      const res = await API.get(url);
       return fulfillWithValue(res);
     } catch (error) {
       return rejectWithValue(error);
@@ -77,8 +101,20 @@ export const projectSlice = createSlice({
       builder,
       createProject,
       'createProject',
+      {
+        fulfilled: ({ state, data }) => {
+          state.requests.getAllProjects.data = [
+            ...state.requests.getAllProjects.data,
+            data,
+          ];
+        },
+      },
     );
-    
+    createRequestBuilderProject<GenericResponse<TaskType>>(
+      builder,
+      getTaskStatus,
+      'getTaskStatus',
+    );
   },
 });
 

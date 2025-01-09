@@ -28,3 +28,10 @@ export type Pagination = {
   page: number;
   pageSize: number;
 };
+
+export type GenericResponse<T> = {
+  success: boolean;
+  status: HttpStatusCode;
+  data: T;
+  message: string;
+};
