@@ -1,22 +1,39 @@
 'use client';
 
+import ProjectTabs from '@/components/Projects/Tabs/ProjectTab';
 import { getStatusStyle } from '@/components/Styles';
 import { Badge } from '@/components/ui/badge';
 import { useAppDispatch, useAppSelector } from '@/hooks/store';
-import { getTaskStatus, selectRequest } from '@/store/slices/project';
+import {
+  getTaskStatus,
+  saveSelectedProject,
+  selectedProject,
+  selectRequest,
+} from '@/store/slices/project';
 import { TASK_STATUS } from '@/store/slices/types/project.type';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-interface PageProps {
-  params: { id: string };
-}
-
 const page = () => {
   const dispatch = useAppDispatch();
+  const { data: projects } = useAppSelector(selectRequest('getAllProjects'));
   const { data, inProgress } = useAppSelector(selectRequest('getTaskStatus'));
+  const project = useAppSelector(selectedProject);
   const { id } = useParams();
   let intervalId = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (id) dispatch(getTaskStatus({ taskId: id as string }));
+  }, []);
+
+  console.log(projects);
+
+  useEffect(() => {
+    if (projects && Array.isArray(projects)) {
+      const activeProject = projects?.find(project => project.taskId == id);
+      activeProject && dispatch(saveSelectedProject(activeProject));
+    }
+  }, [projects]);
 
   useEffect(() => {
     const pollStatus = () => {
@@ -41,17 +58,22 @@ const page = () => {
     };
   }, [data?.status, dispatch]);
 
-  useEffect(() => {
-    if (id) dispatch(getTaskStatus({ taskId: id as string }));
-  }, [id]);
-
   return (
-    <div>
-      {data.status && (
-        <Badge variant={getStatusStyle(data.status) as any}>
-          {data.status}
-        </Badge>
+    <div className="h-full">
+      {project && data?.status && (
+        <div className="flex gap-1 justify-start">
+          <h2 className="text-sm font-medium tracking-tight">
+            {project?.title}
+          </h2>
+          <Badge
+            className="mb-2 px-1 py-[1px] leading-[13px] pb-[2px]"
+            variant={getStatusStyle(data.status) as any}
+          >
+            {data.status}
+          </Badge>
+        </div>
       )}
+      <ProjectTabs />
     </div>
   );
 };

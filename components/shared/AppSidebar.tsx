@@ -24,7 +24,7 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar variant="sidebar">
+    <Sidebar variant="inset">
       <SidebarHeader />
       <UserCard />
       <SidebarContent>

@@ -2,6 +2,7 @@ import { Pagination, Request } from '@/components/types';
 
 export type ProjectState = {
   projectPagination: Pagination;
+  selectedProject: Project | null;
   requests: {
     getAllProjects: Request<Project[]>;
     createProject: Request;
@@ -14,6 +15,7 @@ export type Project = {
   title: string;
   url: string;
   taskId: string;
+  fileUrl: string;
 };
 
 export type CreateProjectType = {

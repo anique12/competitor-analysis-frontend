@@ -1,4 +1,3 @@
-
 import CreateProjectDialog from '@/components/Dialog/CreateProject';
 
 const NewProject = () => {

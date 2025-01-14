@@ -1,5 +1,4 @@
-import { GenericResponse } from '@/components/types';
-import { RequestInitialState, endpoints } from '@/constants';
+import { endpoints, RequestInitialState } from '@/constants';
 import { API } from '@/services';
 import { createRequestBuilderProject } from '@/utils/createRequestBuilder';
 import {
@@ -13,6 +12,7 @@ import {
   CreateProjectType,
   Project,
   ProjectState,
+  TASK_STATUS,
   TaskType,
 } from './types/project.type';
 
@@ -21,6 +21,7 @@ const initialState: ProjectState = {
     page: 0,
     pageSize: 20,
   },
+  selectedProject: null,
   requests: {
     getAllProjects: RequestInitialState,
     createProject: RequestInitialState,
@@ -84,6 +85,9 @@ export const projectSlice = createSlice({
     setProjectPagination: (state, action) => {
       state.projectPagination = action.payload;
     },
+    saveSelectedProject: (state, action) => {
+      state.selectedProject = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(HYDRATE, (state, action: any) => {
@@ -104,23 +108,46 @@ export const projectSlice = createSlice({
       {
         fulfilled: ({ state, data }) => {
           state.requests.getAllProjects.data = [
-            ...state.requests.getAllProjects.data,
             data,
+            ...state.requests.getAllProjects.data,
           ];
         },
       },
     );
-    createRequestBuilderProject<GenericResponse<TaskType>>(
+    createRequestBuilderProject<TaskType>(
       builder,
       getTaskStatus,
       'getTaskStatus',
+      {
+        fulfilled: ({ state, data }) => {
+          console.log(data);
+          if (data.status == TASK_STATUS.COMPLETED) {
+            state.requests.getAllProjects.data.map(project => {
+              if (project._id === data.projectId) {
+                if (state.selectedProject) {
+                  state.selectedProject.fileUrl = data.fileUrl;
+                }
+                return {
+                  ...project,
+                  fileUrl: data.fileUrl,
+                };
+              } else {
+                return project;
+              }
+            });
+          }
+        },
+      },
     );
   },
 });
 
-export const { setProjectPagination } = projectSlice.actions;
+export const { setProjectPagination, saveSelectedProject } =
+  projectSlice.actions;
 
 export const selectRequests = (state: RootState) => state.project.requests;
+export const selectedProject = (state: RootState) =>
+  state.project.selectedProject;
 export const selectProjectPagination = (state: RootState) =>
   state.project.projectPagination;
 
