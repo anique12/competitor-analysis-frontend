@@ -12,7 +12,7 @@ import {
 } from '@/store/slices/project';
 import { TASK_STATUS } from '@/store/slices/types/project.type';
 import { useParams } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const page = () => {
   const dispatch = useAppDispatch();
@@ -21,26 +21,27 @@ const page = () => {
   const project = useAppSelector(selectedProject);
   const { id } = useParams();
   let intervalId = useRef<NodeJS.Timeout | null>(null);
+  const [taskId, settaskId] = useState('');
 
   useEffect(() => {
-    if (id) dispatch(getTaskStatus({ taskId: id as string }));
-  }, []);
-
-  console.log(projects);
+    if (taskId) dispatch(getTaskStatus({ taskId }));
+  }, [taskId]);
 
   useEffect(() => {
-    if (projects && Array.isArray(projects)) {
-      const activeProject = projects?.find(project => project.taskId == id);
+    if (id && projects && Array.isArray(projects)) {
+      const activeProject = projects?.find(project => project._id == id);
       activeProject && dispatch(saveSelectedProject(activeProject));
+      settaskId(activeProject?.taskId as string);
     }
   }, [projects]);
 
   useEffect(() => {
     const pollStatus = () => {
-      if (id) {
-        dispatch(getTaskStatus({ taskId: id as string }));
+      if (taskId) {
+        dispatch(getTaskStatus({ taskId }));
       }
     };
+
     intervalId.current = setInterval(() => {
       if (
         data?.status === TASK_STATUS.COMPLETED ||

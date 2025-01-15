@@ -44,7 +44,7 @@ const ProjectsCard = () => {
 
         {Array.isArray(data) &&
           data.map((project, index) => {
-            const isActive = selectedId === project.taskId;
+            const isActive = selectedId === project._id;
             return (
               <TooltipProvider key={index}>
                 <Tooltip>
@@ -52,7 +52,7 @@ const ProjectsCard = () => {
                     <div
                       className={`py-1 px-2 hover:bg-gray-200 ${isActive && 'bg-gray-200'} rounded-md`}
                       onClick={() => {
-                        !isActive && router.push(`/project/${project.taskId}`);
+                        !isActive && router.push(`/project/${project._id}`);
                       }}
                     >
                       <p className="text-sm font-medium leading-tight">

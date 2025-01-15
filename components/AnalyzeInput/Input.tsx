@@ -54,7 +54,6 @@ const AnalyzeInput = () => {
         setError('No valid data found.');
       }
     } catch (err: any) {
-      console.error(err);
       setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
