@@ -37,7 +37,7 @@ const ProjectTabs = () => {
       </TabsList>
       {tabsList.map(content => (
         <TabsContent
-          className={`w-full flex mt-12 px-2`}
+          className={`w-full flex mt-8 px-2`}
           key={content.value}
           value={content.value}
         >
