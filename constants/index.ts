@@ -12,6 +12,7 @@ export const endpoints = {
   },
   project: {
     getAllProjects: 'project',
+    getProject: 'project',
     create: 'project/create',
     taskStatus: 'task',
     competitiveAnalysis: 'project/competitive-analysis',

@@ -13,7 +13,7 @@ const KnowledgeBase = () => {
   };
 
   return (
-    <div className="mt-28">
+    <div className="w-full mt-28 flex items-center justify-center">
       <Button onClick={downloadData} size="lg">
         Download Data
       </Button>

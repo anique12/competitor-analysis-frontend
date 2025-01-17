@@ -1,5 +1,6 @@
 import { AppSidebar } from '@/components/shared/AppSidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { Toaster } from '@/components/ui/toaster';
 import { StoreProvider } from '@/store/StoreProvider';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -29,12 +30,13 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en">
-        <body className={`${geistSans.variable} antialiased `}>
+        <body className={`${geistSans.variable} antialiased overflow-hidden`}>
           <SidebarProvider>
             <div className="flex gap-4 px-4 mt-4 w-full">
               <AppSidebar />
-              <div className="h-[95%]  mb-2 w-full p-6 rounded-md border">
+              <div className="h-[95%] custom-scrollbar w-[85%]  mb-2 p-6 rounded-md border">
                 {children}
+                <Toaster />
               </div>
             </div>
           </SidebarProvider>

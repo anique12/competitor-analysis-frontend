@@ -27,6 +27,7 @@ const initialState: ProjectState = {
     createProject: RequestInitialState,
     getTaskStatus: RequestInitialState,
     getCompetitiveAnalysis: RequestInitialState,
+    getProjectById: RequestInitialState,
   },
 };
 
@@ -94,6 +95,21 @@ export const getCompetitiveAnalysis = createAsyncThunk(
     }
   },
 );
+export const getProjectById = createAsyncThunk(
+  'project/getProjectById',
+  async (
+    { projectId }: { projectId: string },
+    { fulfillWithValue, rejectWithValue },
+  ) => {
+    try {
+      const url = `${endpoints.project.getProject}/${projectId}`;
+      const res = await API.get(url);
+      return fulfillWithValue(res);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 export const projectSlice = createSlice({
   name: 'project',
@@ -130,6 +146,7 @@ export const projectSlice = createSlice({
           ];
         },
       },
+      { showSuccessMessage: true },
     );
     createRequestBuilderProject<TaskType>(
       builder,
@@ -159,6 +176,20 @@ export const projectSlice = createSlice({
       builder,
       getCompetitiveAnalysis,
       'getCompetitiveAnalysis',
+      {},
+      { showSuccessMessage: true },
+    );
+    createRequestBuilderProject<Project>(
+      builder,
+      getProjectById,
+      'getProjectById',
+      {
+        fulfilled: ({ state, data }) => {
+          if (data.hasCompetitiveAnalysis && state.selectedProject) {
+            state.selectedProject.hasCompetitiveAnalysis = true;
+          }
+        },
+      },
     );
   },
 });

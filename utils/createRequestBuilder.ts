@@ -6,6 +6,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
+import { toastError, toastSuccess } from './toastUtils';
 
 interface AsyncThunkConfig {}
 
@@ -43,7 +44,7 @@ const returnBuilder = <S, R>(
   });
   builder.addCase(request.rejected, (state, action: any) => {
     if (showErrorMessages) {
-      //   fireErrorToast(action?.payload?.response);
+      toastError(action?.payload?.response);
     }
     if (customLogic?.rejected) {
       customLogic?.rejected(state, action);
@@ -53,11 +54,13 @@ const returnBuilder = <S, R>(
     }
   });
   builder.addCase(request.fulfilled, (state, action) => {
+    console.log(action.payload.data.message, showSuccessMessage, 'payload');
     state.requests[name].inProgress = false;
     state.requests[name].success = true;
 
     if (showSuccessMessage) {
-      //   fireSuccessToast(action.payload);
+      console.log('hi');
+      toastSuccess(action.payload);
     }
 
     const { data, message, success, statusCode } = action.payload.data as any;

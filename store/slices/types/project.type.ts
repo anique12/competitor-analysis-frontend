@@ -8,6 +8,7 @@ export type ProjectState = {
     createProject: Request;
     getTaskStatus: Request;
     getCompetitiveAnalysis: Request<Product[]>;
+    getProjectById: Request<Project>;
   };
 };
 
