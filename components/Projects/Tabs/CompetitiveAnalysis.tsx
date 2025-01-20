@@ -26,7 +26,7 @@ const CompetitiveAnalysis = () => {
 
   useEffect(() => {
     if (!selected?.hasCompetitiveAnalysis) return;
-    getAnalysis(); 
+    getAnalysis();
   }, [selected?.hasCompetitiveAnalysis]);
 
   useEffect(() => {
