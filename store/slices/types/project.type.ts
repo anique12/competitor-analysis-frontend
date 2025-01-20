@@ -7,6 +7,8 @@ export type ProjectState = {
     getAllProjects: Request<Project[]>;
     createProject: Request;
     getTaskStatus: Request;
+    getCompetitiveAnalysis: Request<Product[]>;
+    getProjectById: Request<Project>;
   };
 };
 
@@ -16,6 +18,7 @@ export type Project = {
   url: string;
   taskId: string;
   fileUrl: string;
+  hasCompetitiveAnalysis: boolean;
 };
 
 export type CreateProjectType = {
@@ -35,3 +38,16 @@ export enum TASK_STATUS {
   COMPLETED = 'completed',
   FAILED = 'failed',
 }
+
+export type Product = {
+  'Product Name': string;
+  Price: string;
+  'Target Region/Delivery Region': string;
+  'Sizes Variation/Available': string;
+  'Product Made of': string;
+  'Shipping Summary': string;
+  'Product Description': string;
+  'Product Page URL': string;
+  'Product Benefits': string;
+  'Other USPs': string;
+};

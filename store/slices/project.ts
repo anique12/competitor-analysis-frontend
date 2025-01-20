@@ -26,6 +26,8 @@ const initialState: ProjectState = {
     getAllProjects: RequestInitialState,
     createProject: RequestInitialState,
     getTaskStatus: RequestInitialState,
+    getCompetitiveAnalysis: RequestInitialState,
+    getProjectById: RequestInitialState,
   },
 };
 
@@ -78,6 +80,37 @@ export const getTaskStatus = createAsyncThunk(
   },
 );
 
+export const getCompetitiveAnalysis = createAsyncThunk(
+  'project/getCompetitiveAnalysis',
+  async (
+    { projectId }: { projectId: string },
+    { fulfillWithValue, rejectWithValue },
+  ) => {
+    try {
+      const url = `${endpoints.project.competitiveAnalysis}/${projectId}`;
+      const res = await API.get(url);
+      return fulfillWithValue(res);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+export const getProjectById = createAsyncThunk(
+  'project/getProjectById',
+  async (
+    { projectId }: { projectId: string },
+    { fulfillWithValue, rejectWithValue },
+  ) => {
+    try {
+      const url = `${endpoints.project.getProject}/${projectId}`;
+      const res = await API.get(url);
+      return fulfillWithValue(res);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const projectSlice = createSlice({
   name: 'project',
   initialState,
@@ -96,7 +129,7 @@ export const projectSlice = createSlice({
         ...action.payload.project,
       };
     });
-    createRequestBuilderProject<Project>(
+    createRequestBuilderProject<Project[]>(
       builder,
       getAllProjects,
       'getAllProjects',
@@ -113,6 +146,7 @@ export const projectSlice = createSlice({
           ];
         },
       },
+      { showSuccessMessage: true },
     );
     createRequestBuilderProject<TaskType>(
       builder,
@@ -120,7 +154,6 @@ export const projectSlice = createSlice({
       'getTaskStatus',
       {
         fulfilled: ({ state, data }) => {
-          console.log(data);
           if (data.status == TASK_STATUS.COMPLETED) {
             state.requests.getAllProjects.data.map(project => {
               if (project._id === data.projectId) {
@@ -135,6 +168,25 @@ export const projectSlice = createSlice({
                 return project;
               }
             });
+          }
+        },
+      },
+    );
+    createRequestBuilderProject(
+      builder,
+      getCompetitiveAnalysis,
+      'getCompetitiveAnalysis',
+      {},
+      { showSuccessMessage: true },
+    );
+    createRequestBuilderProject<Project>(
+      builder,
+      getProjectById,
+      'getProjectById',
+      {
+        fulfilled: ({ state, data }) => {
+          if (data.hasCompetitiveAnalysis && state.selectedProject) {
+            state.selectedProject.hasCompetitiveAnalysis = true;
           }
         },
       },
