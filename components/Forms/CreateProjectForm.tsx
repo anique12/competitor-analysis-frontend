@@ -1,5 +1,6 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { createProject, selectRequest } from '@/store/slices/project';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import FormInput from '../Inputs/FormInput';
@@ -7,7 +8,6 @@ import { Button } from '../ui/button';
 import { Form } from '../ui/form';
 import { createProjectSchema } from './Schema';
 import { CreateFormType } from './types';
-import { createProject, selectRequest } from '@/store/slices/project';
 
 const CreateProjectForm = () => {
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ const CreateProjectForm = () => {
           name="url"
           placeholder="Enter website url"
         />
-        <Button loading={inProgress}  className="w-full mt-12" type="submit">
+        <Button loading={inProgress} className="w-full mt-12" type="submit">
           Create
         </Button>
       </form>

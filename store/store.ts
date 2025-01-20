@@ -6,7 +6,7 @@ export const getStoreCreator = () => () =>
   configureStore({
     reducer: {
       project,
-    }, 
+    },
   });
 
 const storeCreator = getStoreCreator();
